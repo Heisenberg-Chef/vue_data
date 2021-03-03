@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <!--绑定到元素 app-->
+    <!--VIEW层-->
+    <div id="app">{{message}}</div>
+    <!--导入vue.js-->
+    <script>
+        // 标准的js绑定对象
+        var vm = new Vue({
+            el: "#app",
+            // Model: 数据
+            data: {
+                message: "Hello VUE!"
+            }
+        });
+        // 我们通过绑定message这个数据可以动态修改 vm.message="123" 也可以修改数据 , 双向绑定
+    </script>
+</body>
+
+</html>

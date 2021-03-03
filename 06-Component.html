@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+<!--    给组件中的值进行接收 : props 绑定到了props属性中的'abc'参数-->
+    <qilei v-for="abc in items" v-bind:xxx="abc"></qilei>
+</div>
+<script>
+    // 给vue定义一个组件 , 类似 thymeleaf中的 th:fragment
+    Vue.component(
+        "qilei",{
+            // 我们在props 中设定一个对象 xxx 作为中间商 从别的vue组件中获取对象并且放进去.
+            props: ['xxx'],
+            // 我们使用上面的xxx 中间商作为占位符
+            template: "<li>{{xxx}}</li>"
+        }
+    );
+    // 需要定义元素 , 对标签集合进行绑定
+    // 并且从 Vue的全局属性组件中拿到叫做qilei的组件
+    var vm = new Vue(
+        {
+            el: "#app",
+            data:
+                {
+                    items: ["java","C++","Python"]
+                }
+        }
+    );
+</script>
+</body>
+</html>

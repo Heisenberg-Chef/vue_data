@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="vue">
+    <todo>
+        <todo-title slot="todo-title" :title="title"></todo-title>
+<!--        视图模板的列表行 , 我们进行了索引操作 , 所有的变量名字与组件和Vue实例的变量名称是一样的-->
+<!--        我们绑定的事件为remove , 这一条事件对于底层的组件则是自定义事件 $ emit , 组件做的事情就是将我们点击的第几个告诉视图层-->
+<!--        视图层将事件触发 , 拿到了index序号之后 , 将方法给vue实例 , vue实例因为绑定了事件 , 知道我们调用了removeItem函数. 从而进行了删除的操作-->
+        <todo-items slot="todo-items" v-for="(item,index) in todoItems"
+                    :item="item" :index="index" :key="index" v-on:remove="removeItem(index)"></todo-items>
+    </todo>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+    Vue.component("todo",
+        {
+            template: "<div>" +
+                "<slot name='todo-title'></slot>"+
+                "<ul>"+
+                "<slot name='todo-items'></slot>"+
+                "</ul>"+ "</div>"
+        });
+
+    Vue.component("todo-title",{
+        props: ["title"],
+        template: "<div>{{title}}</div>"
+    })
+
+    Vue.component("todo-items",{
+        props: ["item","index"],
+        template: "<li>{{item}}---{{index}}<button @click='remove'>删除</button> </li>",
+        methods: {
+            remove: function(index)
+            {
+                // 1 : 自定义事件名  2 : 下标名字
+                console.log("calling emit method.");
+                // 在组件层绑定事件的名字作为自定义的事件 , 然后使用index参数进行参数的传递.
+                this.$emit("remove", index);
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: "#vue",
+        data: {
+            title: "磊神书籍",
+            todoItems: ["java","C++","RaspberryPi"]
+        },
+        // 在这里我们定义一个普普通通的方法 , 就是删除data数据中的列表数据
+        methods: {
+            removeItem: function(index)
+            {
+                // JS的拼接方法 , 从数据中 的第几个位置 , 删除多少个元素 , 追加 .........item.
+                console.log("删除了"+this.todoItems[index]);
+                this.todoItems.splice(index,1);
+            }
+        }
+    });
+</script>
+</html>

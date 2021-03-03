@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--view层 模板-->
+<div id="vue">
+    <p>currentTime : {{currentTime}}</p>
+    <p>computedTime: {{computedCurrentTime}}</p>
+</div>
+</body>
+
+<!--1.导入vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<!--导入axios-->
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#vue",
+        data: {
+        },
+        methods: {
+            currentTime: function()
+            {
+                return Date.now();      // 返回一个时间
+            }
+        },
+        computed: {
+            // 最好不要跟上面的方法重名 ,
+            computedCurrentTime: function()
+            {
+                // 当message数据改变 , 时间戳才进行改变 . 这些操作是在缓存中进行的
+                this.message;
+                return Date().now();
+            }
+        }
+    });
+</script>
+</html>

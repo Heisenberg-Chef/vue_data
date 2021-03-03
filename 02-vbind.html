@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <span v-bind:title="message">悬浮查看标签</span>
+</div>
+
+<div id="app1">
+    <h1 v-if="choose==='A'">A</h1>
+    <h1 v-else-if="choose==='B'">B</h1>
+    <h1 v-else-if="choose==='C'">C</h1>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            message: "hello vue!" + new Date().toLocaleDateString()
+        }
+    });
+
+    var vm1 = new Vue(
+        {
+            el: "#app1",
+            data: {
+                choose: 'A'
+            }
+        }
+    );
+
+    var vm2 = new Vue(
+        {
+            el: "#app2",
+            data: {
+                ok: true,
+            }
+        }
+    );
+</script>
+</html>
